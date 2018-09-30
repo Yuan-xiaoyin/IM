@@ -1,0 +1,68 @@
+
+数据库 IM
+	table1保存用户基本信息: user_info
+		字段: ID (int, primary key, auto_increment; 用户唯一标识)
+			 name (char(16); unique 用户名)
+			 passwd (char(20), binary not null default '12345678'; 密码)
+			 register_time (datetime; 注册时间)
+			 last_time (datetime; 上次登录时间)
+			 nick_name (varchar(24); 昵称)
+			 logo (varchar(128) not null default './image/user_logo.jpg'; 头像)
+			 status (tinyint unsigned not null default 0; 记录账号状态,0正常,1...)
+			 ...
+
+	table2保存好友列表(关系): friends
+		字段：UID (int; 用户ID)
+			 FID (int; 好友ID)
+			 add_time (datetime; 添加时间)
+
+	table3保存好友聊天记录: chat_history
+		字段: UID (int; 发送者ID)
+			 FID (int; 接收者ID)
+			 msg (varchar(1024); 消息内容)
+			 send_time (datetime; 发送时间)
+
+
+
+
+------------------table4 ~ table5暂未使用-------------------------
+
+	table4保存群列表: groups
+		字段: GID (int, primary key, auto_increment; 群ID)
+			 name (varchar(32); 群名称)
+			 logo (varchar(128) not null default './image/group_logo.jpg'; 群头像)
+			 create_time (timestamp; 群创建时间)
+
+	table5保存群成员列表: group_users
+		字段: GID (int; 群ID)
+			 UID (int; 用户ID)
+			 join_time (timestamp; 加入时间)
+			 status (tinyint unsigned not null default 0; 用户在该群状态,0正常,1禁言,2...)
+
+	table6保存群聊天记录: group_history
+		字段: GID (int; 群ID)
+		     UID (int; 发送者ID)
+			 send_time (timestamp; 发送时间)
+
+
+
+服务器
+	1.主流程控制模块 chat_server.py
+		1.1.登录 login.py
+		1.2.注册 register.py
+		1.3.主界面 home.py
+		1.4.添加好友 addfriend.py
+		1.5.好友聊天 secretchat.py
+		1.6.群聊 chatroom.py
+
+
+
+客户端
+	1.主流程控制模块 chat_client.py
+	2.登录 login.py
+	3.注册 register.py
+	4.主界面 home.py
+		4.1 好友聊天 
+		4.2 群聊
+	5.添加好友 add.py
+
